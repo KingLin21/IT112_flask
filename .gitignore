@@ -1,1 +1,6 @@
 $ touch .gitignore
+*.breakpoint
+.replit
+replit.nix
+poetry.lock
+pyproject.toml*
