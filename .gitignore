@@ -4,9 +4,3 @@
 poetry.lock
 pyproject.toml
 replit.nix
-
-git rm --cached <.breakpoints>
-git rm --cached <.replit>
-git rm --cached <poetry.lock>
-git rm --cached <pyproject.toml>
-git rm --cached <replit.nix>
