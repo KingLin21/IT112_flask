@@ -1,5 +1,6 @@
 { pkgs }: {
   deps = [
+    pkgs.rocket
     pkgs.python38Full
   ];
   env = {

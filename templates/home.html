@@ -14,6 +14,26 @@
  <h1>IT 112 Flask Application</h1>
  <p>This is my first Flask Application.</p>
 </div>
+   <p>Fortune Teller.</p>
+  <p>Submit your name.</p> 
+  <p>Pick a number 1-5.</p>
+  <p>Pick a color (Blue, Red, Green, Yellow).</p>
+<form method="POST" action="/fortune">
+    <input type="text" name="user">
+    <select name="color">
+        <option>red</option>
+        <option>yellow</option>
+        <option>blue</option>
+        <option>green</option>
+    </select>
+    <select name="number">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+    <button>submit</button>
 
 </body>
 </html>
