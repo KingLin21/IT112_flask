@@ -64,13 +64,5 @@ def fortunetold():
       fortune = "Bide your time, for success is near"
   return render_template('fortunetold.html', user=request.form.get('user'), fortune=fortune)
 
-@app.route('/schedule/<student_name>')
-def schedule(student_name):
-  courses = [
-    {"id": 123, "name": "IT 121"},
-    {"id": 456, "name": "IT 276"},
-    {"id": 789, "name": "MATH 140"},
-  ]
-  return render_template('Test.html', student_name=student_name, courses=courses)
-  
+
 app.run(host='0.0.0.0', port=81)
