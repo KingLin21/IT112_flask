@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Webpage</title>
+</head>
+<body>
+    {# this is a comment #}
+
+    {% if student_name %}
+        <h1>Course Schedule for {{ student_name }}</h1>
+    {% else %}
+        <h1>Course Schedule Page</h1>
+    {% endif %}
+    
+    <ul>
+    {% for course in courses %}
+        <li><a href="/courses/{{ course.id }}">{{ course.name }}</a></li>
+    {% endfor %}
+    </ul>
+
+</body>
+</html>
