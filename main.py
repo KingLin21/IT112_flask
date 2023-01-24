@@ -1,7 +1,42 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+# set URI for the database to be used
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.db'
+
+# associate a SQLAlchemy object with the Flask app
+db = SQLAlchemy(app)
+
+# create a 'student' class that maps to a db table
+class Game(db.Model):
+   id = db.Column(db.Integer, primary_key = True)
+   name = db.Column(db.String(100), nullable=False)
+   creator = db.Column(db.String(120), nullable=False)
+   genre = db.Column(db.String(50))
+
+
+def __repr__(self):
+  return '<Game %r>' % self.name
+
+# create / use the database
+with app.app_context():
+  db.create_all()
+
+game1 = Game(name='Call of Duty', creator='Activision', genre='First Person Shooter')
+game2 = Game(name='World of Warcraft', creator='Blizzard', genre='MMORPG')
+game3 = Game(name='Skyrim', creator='Bethseda', genre='Role Playing Game')
+
+@app.route('/list')
+def list():
+  games = Game.query.all()
+  return render_template('list.html', games=games)
+
+@app.route('/list/<int:game_id>')
+def game(game_id):
+  game = Game.query.get_or_404(game_id)
+  return render_template('detail.html', game=game)
 
 @app.route('/', methods=['GET','POST'])
 def home():

@@ -1,0 +1,14 @@
+{% block content %}
+    <span class="title">
+        <h1>{% block title %} Game Information {% endblock %}</h1>
+    </span>
+    <div class="content">
+            <div class="game">
+                <b>
+                    <p class="name">{{ game.name }}
+                </b>
+                <p>Creator: {{ game.creator }}</p>
+                <p>Game Genre: {{ game.genre }}</p>
+            </div>
+    </div>
+{% endblock %}
