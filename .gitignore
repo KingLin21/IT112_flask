@@ -1,6 +1,10 @@
-.breakpoints
+env
+venv
+__pycache__
+
+.vscode
+
 .replit
-poetry.lock
-pyproject.toml
 replit.nix
 
+.DS_Store
