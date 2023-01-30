@@ -1,5 +1,6 @@
 { pkgs }: {
   deps = [
+    pkgs.mailutils
     pkgs.rocket
     pkgs.python38Full
   ];

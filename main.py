@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+import json
+
 
 app = Flask(__name__)
 
@@ -11,11 +13,20 @@ db = SQLAlchemy(app)
 
 # create a 'student' class that maps to a db table
 class Game(db.Model):
-   id = db.Column(db.Integer, primary_key = True)
-   name = db.Column(db.String(100), nullable=False)
-   creator = db.Column(db.String(120), nullable=False)
-   genre = db.Column(db.String(50))
+  id = db.Column(db.Integer, primary_key = True)
+  name = db.Column(db.String(100), nullable=False)
+  creator = db.Column(db.String(120), nullable=False)
+  genre = db.Column(db.String(50))
 
+  @property
+  def serialized(self):
+    """Return object data in easily serializable format"""
+    return {
+    'id': self.id,
+    'name': self.name,
+    'creator': self.creator,
+    'genre': self.genre
+  }
 
 def __repr__(self):
   return '<Game %r>' % self.name
@@ -24,9 +35,27 @@ def __repr__(self):
 with app.app_context():
   db.create_all()
 
-game1 = Game(name='Call of Duty', creator='Activision', genre='First Person Shooter')
-game2 = Game(name='World of Warcraft', creator='Blizzard', genre='MMORPG')
-game3 = Game(name='Skyrim', creator='Bethseda', genre='Role Playing Game')
+@app.route('/api/games')
+def api_games():
+  return jsonify([game.serialized for game in Game.query.all()])
+
+@app.post('/api/game')
+def api_game():
+    data = request.get_json()
+    try:
+      game = Game(name=data['name'], creator=data['creator'], genre=data['genre'])
+      db.session.add(game)
+      db.session.commit()
+      return jsonify({"Status": "Success"})
+    except Exception:
+      return app.response_class({"Status": "Failure"},
+                               status=500,
+                               mimetype='application/json')
+  
+    
+
+                                        
+
 
 @app.route('/list')
 def list():
